@@ -4,17 +4,17 @@ from src.formula_conversions import formula_conversions
 from src.dimac_solver import *
 
 # Define the SAT formula
-trainLate, taxi, johnLate = symbols('trainLate taxi johnLate')
-sat_formula = Implies(Implies(And(trainLate, Not(taxi)), johnLate),
-                      Implies(Not(johnLate), Implies(trainLate, taxi)))
+# trainLate, taxi, johnLate = symbols('trainLate taxi johnLate')
+# sat_formula = Implies(Implies(And(trainLate, Not(taxi)), johnLate),
+#                       Implies(Not(johnLate), Implies(trainLate, taxi)))
 
-# A, B, C = symbols('A, B, C')
-# sat_formula = And(
-#     Or(A, B),
-#     Or(Not(A), Not(B)),
-#     Or(A, C),
-#     Or(Not(B), C)
-# )
+A, B, C = symbols('A, B, C')
+sat_formula = And(
+    Or(A, B),
+    Or(Not(A), Not(B)),
+    Or(A, C),
+    Or(Not(B), C)
+)
 
 f_convertor = formula_conversions(sat_formula)
 

@@ -1,0 +1,57 @@
+sample 1:
+Sat formula is: Implies(Implies(trainLate & ~taxi, johnLate), Implies(~johnLate, Implies(trainLate, taxi)))
+
+writing cnf formula from sat : (johnLate | taxi | trainLate | ~trainLate) & (johnLate | taxi | ~johnLate | ~trainLate) & (johnLate | taxi | ~taxi | ~trainLate)
+dimac structure of the sat is [[1, 2, 3, -3], [1, 2, -1, -3], [1, 2, -2, -3]]
+
+ going into sematic entailment check for variables in the clause
+johnLate with this False is non redundant in formula
+johnLate with this False is non redundant in formula
+johnLate with this False is non redundant in formula
+johnLate with this True is non redundant in formula
+johnLate with this True is non redundant in formula
+johnLate with this True is non redundant in formula
+taxi with this False is non redundant in formula
+taxi with this False is non redundant in formula
+taxi with this False is non redundant in formula
+taxi with this True is non redundant in formula
+taxi with this True is non redundant in formula
+taxi with this True is non redundant in formula
+trainLate with this False is non redundant in formula
+trainLate with this False is non redundant in formula
+trainLate with this False is non redundant in formula
+trainLate with this True is non redundant in formula
+trainLate with this True is non redundant in formula
+trainLate with this True is non redundant in formula
+
+sample 2:
+Sat formula is: (A | B) & (A | C) & (C | ~B) & (~A | ~B)
+
+writing cnf formula from sat : (A | B) & (A | C) & (C | ~B) & (~A | ~B)
+dimac structure of the sat is [[3, 2], [3, 1], [1, -2], [-3, -2]]
+
+ going into sematic entailment check for variables in the clause
+couldn't find the literal or formula is same as original form in the clause
+C with this False is redundant in formula
+C with this False is redundant in formula
+couldn't find the literal or formula is same as original form in the clause
+couldn't find the literal or formula is same as original form in the clause
+C with this True is redundant in formula
+C with this True is redundant in formula
+couldn't find the literal or formula is same as original form in the clause
+B with this False is redundant in formula
+couldn't find the literal or formula is same as original form in the clause
+B with this False is redundant in formula
+B with this False is redundant in formula
+B with this True is redundant in formula
+couldn't find the literal or formula is same as original form in the clause
+B with this True is redundant in formula
+B with this True is redundant in formula
+A with this False is redundant in formula
+A with this False is redundant in formula
+couldn't find the literal or formula is same as original form in the clause
+A with this False is redundant in formula
+A with this True is redundant in formula
+A with this True is redundant in formula
+couldn't find the literal or formula is same as original form in the clause
+A with this True is redundant in formula
