@@ -14,6 +14,7 @@ sat_formula = Implies(Implies(And(trainLate, Not(taxi)), johnLate),
 #     Or(A, B),
 #     Or(B, C)
 # )
+# A, B, C = symbols('A, B, C')
 # sat_formula = And(
 #     Or(A, B),
 #     Or(Not(A), Not(B)),
@@ -49,21 +50,27 @@ if sat != "UNSAT":
 
     print("getting dimac subsets")
     dimac_subsets = get_subsets(dimac_formula)
+    redundant_sub_formulas = []
     for i, inst_subset in enumerate(dimac_subsets):
         semEqui = check_semantic_entailment(dimac_formula, inst_subset)
         # print(inst_subset)
         if semEqui:
             print(f"{dimac_formula[i]} is redundant in formula")
+            redundant_sub_formulas.append(dimac_formula[i])
         else:
             print(f"{dimac_formula[i]} is non redundant in formula")
         instModels = get_models(inst_subset)
-        if np.array_equal(np_all_models, np.array(instModels)):
-            print(f"{dimac_formula[i]} is having same models")
-        else:
-            print(f"{dimac_formula[i]} is having different models")
+        # if np.array_equal(np_all_models, np.array(instModels)):
+        #     print(f"{dimac_formula[i]} is having same models")
+        # else:
+        #     print(f"{dimac_formula[i]} is having different models")
         print("\n")
 
 else:
     print("Unsatisfiable")
 
-
+if redundant_sub_formulas:
+    for instList in redundant_sub_formulas:
+        print(instList)
+else:
+    print("ther aren't any redudnat sub formulas")

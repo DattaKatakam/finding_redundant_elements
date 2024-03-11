@@ -65,11 +65,12 @@ def check_var_semantic_entailment(formula_converter, dimac_formula, all_models):
     redundant_elements = set()
     variables = formula_converter.get_variables()
     var_map = get_var_mapping(formula_converter.get_cnf_formula())
-
+    redundant_elements = []
     for var in variables:
-        # print(f"var is {var} and var map is {var_map[var]}")
+        print(f"var is {var} and var map is {var_map[var]}")
         is_redundant = False
         for varBool in {False, True}:
+            sub_redundant = []
             reduced_cnf = copy.deepcopy(dimac_formula)
             checked = False
             # print(f"current reduced cnf is not altered: {reduced_cnf}")
@@ -98,10 +99,17 @@ def check_var_semantic_entailment(formula_converter, dimac_formula, all_models):
                 # print(f" the semantic entailment we got is: {semEqui}")
                 if semEqui:
                     print(f"{var} with this {varBool} is redundant in formula")
+                    sub_redundant.append(var)
+                    sub_redundant.append(varBool)
+                    sub_redundant.append(reduced_cnf[j])
                 else:
                     print(f"{var} with this {varBool} is non redundant in formula")
                 # print("\n")
                 reduced_cnf[j] = duplicate_clause
+            if sub_redundant:
+                redundant_elements.append(sub_redundant)
+
             if not checked:
                 continue
         # print("\n\n")
+    return redundant_elements
