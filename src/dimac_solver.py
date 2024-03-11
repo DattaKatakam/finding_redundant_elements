@@ -51,8 +51,8 @@ def restructure(f1, f2):
 def check_semantic_entailment(main_form, sub_form):
     negated_sub_form = negated_dimac(sub_form)
     negated_main_form = negated_dimac(main_form)
-    form1 = restructure(negated_main_form, negated_sub_form)
-    form2 = restructure(negated_sub_form, negated_main_form)
+    form1 = restructure(main_form, negated_sub_form)
+    form2 = restructure(sub_form, negated_main_form)
     satVal_form1 = check_satisfiability(form1)
     satVal_form2 = check_satisfiability(form2)
     if satVal_form1 != "UNSAT" and satVal_form2 != "UNSAT":
