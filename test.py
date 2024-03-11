@@ -2,44 +2,30 @@ from sympy import symbols
 from sympy.logic.boolalg import Or, And, Implies, Not
 from src.formula_conversions import formula_conversions
 from src.dimac_solver import *
-
-# Define the SAT formula
-trainLate, taxi, johnLate = symbols('trainLate taxi johnLate')
-sat_formula = Implies(Implies(And(trainLate, Not(taxi)), johnLate),
-                      Implies(Not(johnLate), Implies(trainLate, taxi)))
-
-# A, B, C = symbols('A, B, C')
-# sat_formula = And(
-#     Or(A, B),
-#     Or(Not(A), Not(B)),
-#     Or(A, C),
-#     Or(Not(B), C)
-# )
+import numpy as np
 
 A, B, C = symbols('A, B, C')
 sat_formula = And(
     Or(A, B),
-    Or(Not(B), C)
+    Or(B, C),
+    Or(A, B)
 )
+f_c = formula_conversions()
 
-f_convertor = formula_conversions(sat_formula)
+dimac_formula = [[3, 1], [1, 2], [3, 1]]
+print(dimac_formula)
+temp_cnf = f_c.get_cnf_from_dimac(dimac_formula)
+print(temp_cnf)
 
-print(f"Sat formula is: {sat_formula}")
-variables = f_convertor.get_variables()
-
-test_cnf_formula = f_convertor.get_cnf_formula()
-print(f"writing cnf formula from sat : {test_cnf_formula}")
-
-dimac_formula = f_convertor.get_dimac_formula()
 sat = check_satisfiability(dimac_formula)
 if sat != "UNSAT":
     all_models = get_models(dimac_formula)
     print(f"dimac structure of the sat is {dimac_formula}")
     print("\nchecking sematic entailment for variables in the clause.....")
-    listV = check_var_semantic_entailment(f_convertor, dimac_formula)
-    if listV:
+    listC = check_dimac_semantic_entailment(dimac_formula)
+    if listC:
         print("redundant sub formulas in the main formula is/are: ")
-        for listInst in listV:
+        for listInst in listC:
             print(listInst)
         print("these are individually redundant at a time i.e when one is not present then only these particular sub "
               "formulas are redundant")

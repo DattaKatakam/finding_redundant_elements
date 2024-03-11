@@ -1,3 +1,17 @@
+import string
+import random
+from sympy import symbols
+
+
+def get_unique_values(dimac_formula):
+    flattened_list = [value for sublist in dimac_formula for value in sublist if value >= 0]
+    unique_values = set(flattened_list)
+    charset = list(string.ascii_letters)
+    random.shuffle(charset)
+    value_mapping = {value: symbols(charset[i]) for i, value in enumerate(unique_values)}
+    return value_mapping
+
+
 def get_var_mapping(cnf_formula):
     value_to_index = {}
     variables = set(cnf_formula.atoms())

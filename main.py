@@ -28,10 +28,10 @@ f_convertor = formula_conversions(sat_formula)
 print(f"Sat formula is: {sat_formula}")
 variables = f_convertor.get_variables()
 
-print(f"\nwriting cnf formula from sat : {f_convertor.get_cnf_formula()}")
+print(f"writing cnf formula from sat : {f_convertor.get_cnf_formula()}")
 
 dimac_formula = f_convertor.get_dimac_formula()
-print(f"printing dimac formula using dimac convention.py {dimac_formula}")
+print(f"printing dimac formula using dimac convention.py {dimac_formula}\n")
 
 # print(f"printing cnf from dimac: {f_convertor.get_dimac_to_cnf_formula(dimac_formula)}")
 
@@ -61,11 +61,7 @@ if sat != "UNSAT":
         else:
             print(f"{dimac_formula[i]} is non redundant in formula")
         instModels = get_models(inst_subset)
-        # if np.array_equal(np_all_models, np.array(instModels)):
-        #     print(f"{dimac_formula[i]} is having same models")
-        # else:
-        #     print(f"{dimac_formula[i]} is having different models")
-        print("\n")
+        # print("\n")
 
 else:
     print("Unsatisfiable")

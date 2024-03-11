@@ -1,8 +1,8 @@
-import numpy as np
 import pycosat
 import itertools
 from src.mappings import *
 import copy
+from src.formula_conversions import formula_conversions
 
 
 def get_models(dimacs_form):
@@ -61,8 +61,13 @@ def check_semantic_entailment(main_form, sub_form):
         return False
 
 
-def check_var_semantic_entailment(formula_converter, dimac_formula, all_models):
-    redundant_elements = set()
+def check_dimac_semantic_entailment(dimac_formula):
+    f_conv = formula_conversions()
+    f_conv.get_cnf_from_dimac(dimac_formula)
+    return check_var_semantic_entailment(f_conv, dimac_formula)
+
+
+def check_var_semantic_entailment(formula_converter, dimac_formula):
     variables = formula_converter.get_variables()
     var_map = get_var_mapping(formula_converter.get_cnf_formula())
     redundant_elements = []
@@ -104,7 +109,7 @@ def check_var_semantic_entailment(formula_converter, dimac_formula, all_models):
                     sub_redundant.append(varBool)
                     sub_redundant.append(duplicate_clause)
                 # else:
-                    # print(f"{var} with this {varBool} is non redundant in formula")
+                # print(f"{var} with this {varBool} is non redundant in formula")
                 # print("\n")
                 reduced_cnf[j] = duplicate_clause
             if sub_redundant:
