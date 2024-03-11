@@ -72,6 +72,7 @@ def check_var_semantic_entailment(formula_converter, dimac_formula):
     var_map = get_var_mapping(formula_converter.get_cnf_formula())
     redundant_elements = []
     print(var_map)
+    modified_formula = []
     for var in variables:
         # print(f"var is {var} and var map is {var_map[var]}")
         is_redundant = False
@@ -107,7 +108,12 @@ def check_var_semantic_entailment(formula_converter, dimac_formula):
                     # print(f"{var} with this {varBool} is redundant in formula")
                     sub_redundant.append(var)
                     sub_redundant.append(varBool)
+                    sub_redundant.append(reduced_cnf[j])
                     sub_redundant.append(duplicate_clause)
+                    if reduced_cnf[j] != duplicate_clause:
+                        # print(f"changed dimacs for the {var} in dimac is {reduced_cnf}")
+                        modified_formula.append(copy.deepcopy(reduced_cnf))
+
                 # else:
                 # print(f"{var} with this {varBool} is non redundant in formula")
                 # print("\n")
@@ -118,4 +124,4 @@ def check_var_semantic_entailment(formula_converter, dimac_formula):
             if not checked:
                 continue
         # print("\n\n")
-    return redundant_elements
+    return modified_formula

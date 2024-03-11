@@ -1,6 +1,4 @@
-from sympy import symbols
 from sympy.logic.boolalg import Or, And, Implies, Not
-from src.formula_conversions import formula_conversions
 from src.dimac_solver import *
 
 # Define the SAT formula
@@ -16,11 +14,11 @@ sat_formula = Implies(Implies(And(trainLate, Not(taxi)), johnLate),
 #     Or(Not(B), C)
 # )
 
-A, B, C = symbols('A, B, C')
-sat_formula = And(
-    Or(A, B),
-    Or(Not(B), C)
-)
+# A, B, C = symbols('A, B, C')
+# sat_formula = And(
+#     Or(A, B),
+#     Or(Not(B), C)
+# )
 
 f_convertor = formula_conversions(sat_formula)
 
@@ -38,7 +36,7 @@ if sat != "UNSAT":
     print("\nchecking sematic entailment for variables in the clause.....")
     listV = check_var_semantic_entailment(f_convertor, dimac_formula)
     if listV:
-        print("redundant sub formulas in the main formula is/are: ")
+        print("original formula is modified after removing the redundant sub formulas is/are: ")
         for listInst in listV:
             print(listInst)
         print("these are individually redundant at a time i.e when one is not present then only these particular sub "

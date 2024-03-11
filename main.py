@@ -1,6 +1,4 @@
-from sympy import symbols
 from sympy.logic.boolalg import Or, And, Implies, Not
-from src.formula_conversions import formula_conversions
 from src.dimac_solver import *
 import numpy as np
 
@@ -49,15 +47,15 @@ if sat != "UNSAT":
     # after getting sub sets we check semantic entailment of these new subsets to original dimac
     # !( original -> subset) and !(subset -> original) both are unsat then that particular clause is redundant
 
-    print("getting dimac subsets")
+    print("getting dimac subsets and checking semantic entailment with sub sets generated.....")
     dimac_subsets = get_subsets(dimac_formula)
     redundant_sub_formulas = []
     for i, inst_subset in enumerate(dimac_subsets):
         semEqui = check_semantic_entailment(dimac_formula, inst_subset)
         # print(inst_subset)
         if semEqui:
-            print(f"{dimac_formula[i]} is redundant in formula")
-            redundant_sub_formulas.append(dimac_formula[i])
+            # print(f"{dimac_formula[i]} is redundant in formula")
+            redundant_sub_formulas.append(inst_subset)
         else:
             print(f"{dimac_formula[i]} is non redundant in formula")
         instModels = get_models(inst_subset)
@@ -67,7 +65,7 @@ else:
     print("Unsatisfiable")
 
 if redundant_sub_formulas:
-    print("redundant sub formulas in the main formula is/are: ")
+    print("original formula is modified after removing the redundant sub formulas is/are: ")
     for instList in redundant_sub_formulas:
         print(instList)
     print("these are individually redundant at a time i.e when one is not present then only these particular sub "
