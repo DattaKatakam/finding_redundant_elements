@@ -56,12 +56,13 @@ if sat != "UNSAT":
             print(f"{dimac_formula[i]} is redundant in formula")
         else:
             print(f"{dimac_formula[i]} is non redundant in formula")
-        print("\n")
         instModels = get_models(inst_subset)
         if np.array_equal(np_all_models, np.array(instModels)):
             print(f"{dimac_formula[i]} is having same models")
         else:
             print(f"{dimac_formula[i]} is having different models")
+        print("\n")
+
 else:
     print("Unsatisfiable")
 
