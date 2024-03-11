@@ -1,18 +1,9 @@
-from sympy import symbols
-from sympy.logic.boolalg import Or, And, Implies, Not
-from src.formula_conversions import formula_conversions
 from src.dimac_solver import *
-import numpy as np
 
-A, B, C = symbols('A, B, C')
-sat_formula = And(
-    Or(A, B),
-    Or(B, C),
-    Or(A, B)
-)
 f_c = formula_conversions()
 
 dimac_formula = [[3, 1], [1, 2], [3, 1]]
+# dimac_formula = [[1, 3, 2, -2], [1, 3, -1, -2], [1, 3, -3, -2]]
 print(dimac_formula)
 temp_cnf = f_c.get_cnf_from_dimac(dimac_formula)
 print(temp_cnf)
