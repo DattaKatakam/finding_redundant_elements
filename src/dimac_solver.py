@@ -66,8 +66,9 @@ def check_var_semantic_entailment(formula_converter, dimac_formula, all_models):
     variables = formula_converter.get_variables()
     var_map = get_var_mapping(formula_converter.get_cnf_formula())
     redundant_elements = []
+    print(var_map)
     for var in variables:
-        print(f"var is {var} and var map is {var_map[var]}")
+        # print(f"var is {var} and var map is {var_map[var]}")
         is_redundant = False
         for varBool in {False, True}:
             sub_redundant = []
@@ -88,7 +89,7 @@ def check_var_semantic_entailment(formula_converter, dimac_formula, all_models):
                             clause[i] = -lit
                 # print(f"changed the clause: {clause}")
                 if not foundLit:
-                    print("couldn't find the literal or formula is same as original form in the clause")
+                    # print("couldn't find the literal or formula is same as original form in the clause")
                     # print("\n")
                     continue
 
@@ -98,12 +99,12 @@ def check_var_semantic_entailment(formula_converter, dimac_formula, all_models):
                 # print(reduced_cnf)
                 # print(f" the semantic entailment we got is: {semEqui}")
                 if semEqui:
-                    print(f"{var} with this {varBool} is redundant in formula")
+                    # print(f"{var} with this {varBool} is redundant in formula")
                     sub_redundant.append(var)
                     sub_redundant.append(varBool)
-                    sub_redundant.append(reduced_cnf[j])
-                else:
-                    print(f"{var} with this {varBool} is non redundant in formula")
+                    sub_redundant.append(duplicate_clause)
+                # else:
+                    # print(f"{var} with this {varBool} is non redundant in formula")
                 # print("\n")
                 reduced_cnf[j] = duplicate_clause
             if sub_redundant:
