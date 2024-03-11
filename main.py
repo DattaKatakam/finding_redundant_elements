@@ -12,8 +12,9 @@ sat_formula = Implies(Implies(And(trainLate, Not(taxi)), johnLate),
 # A, B, C = symbols('A, B, C')
 # sat_formula = And(
 #     Or(A, B),
-#     Or(B, C)
+#     Or(Not(B), C)
 # )
+
 # A, B, C = symbols('A, B, C')
 # sat_formula = And(
 #     Or(A, B),
@@ -70,7 +71,10 @@ else:
     print("Unsatisfiable")
 
 if redundant_sub_formulas:
+    print("redundant sub formulas in the main formula is/are: ")
     for instList in redundant_sub_formulas:
         print(instList)
+    print("these are individually redundant at a time i.e when one is not present then only these particular sub "
+          "formulas are redundant")
 else:
-    print("ther aren't any redudnat sub formulas")
+    print("there aren't any redundant sub formulas")

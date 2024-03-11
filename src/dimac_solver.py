@@ -55,7 +55,7 @@ def check_semantic_entailment(main_form, sub_form):
     form2 = restructure(sub_form, negated_main_form)
     satVal_form1 = check_satisfiability(form1)
     satVal_form2 = check_satisfiability(form2)
-    if satVal_form1 != "UNSAT" and satVal_form2 != "UNSAT":
+    if satVal_form1 == "UNSAT" and satVal_form2 == "UNSAT":
         return True
     else:
         return False

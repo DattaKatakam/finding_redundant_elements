@@ -16,6 +16,12 @@ sat_formula = Implies(Implies(And(trainLate, Not(taxi)), johnLate),
 #     Or(Not(B), C)
 # )
 
+# A, B, C = symbols('A, B, C')
+# sat_formula = And(
+#     Or(A, B),
+#     Or(Not(B), C)
+# )
+
 f_convertor = formula_conversions(sat_formula)
 
 print(f"Sat formula is: {sat_formula}")
@@ -29,10 +35,13 @@ sat = check_satisfiability(dimac_formula)
 if sat != "UNSAT":
     all_models = get_models(dimac_formula)
     print(f"dimac structure of the sat is {dimac_formula}")
-    print("\n going into sematic entailment check for variables in the clause")
+    print("\nchecking sematic entailment for variables in the clause.....")
     listV = check_var_semantic_entailment(f_convertor, dimac_formula, all_models)
     if listV:
+        print("redundant sub formulas in the main formula is/are: ")
         for listInst in listV:
             print(listInst)
+        print("these are individually redundant at a time i.e when one is not present then only these particular sub "
+              "formulas are redundant")
     else:
-        print("ther are no redundat individual elemtns")
+        print("there are no redundant individual elements")
