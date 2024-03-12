@@ -29,12 +29,16 @@ test_cnf_formula = f_convertor.get_cnf_formula()
 print(f"writing cnf formula from sat : {test_cnf_formula}")
 
 dimac_formula = f_convertor.get_dimac_formula()
+print(f"dimac structure of the sat is {dimac_formula}")
 sat = check_satisfiability(dimac_formula)
 if sat != "UNSAT":
+    print("\nSatisfiable")
     all_models = get_models(dimac_formula)
-    print(f"dimac structure of the sat is {dimac_formula}")
+    print("Models:")
+    for model in all_models:
+        print(model)
     print("\nchecking sematic entailment for variables in the clause.....")
-    listV = check_var_semantic_entailment(f_convertor, dimac_formula)
+    listV = check_dimac_redundant_elements(f_convertor, dimac_formula)
     if listV:
         print("original formula is modified after removing the redundant sub formulas is/are: ")
         for listInst in listV:
@@ -43,3 +47,6 @@ if sat != "UNSAT":
               "formulas are redundant")
     else:
         print("there are no redundant individual elements")
+
+else:
+    print("Unsatisfiable")

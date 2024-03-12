@@ -61,13 +61,28 @@ def check_semantic_entailment(main_form, sub_form):
         return False
 
 
-def check_dimac_semantic_entailment(dimac_formula):
+def check_dimac_redundant_sub_formulas(dimac_formula):
+    print("getting dimac subsets and checking semantic entailment with sub sets generated.....")
+    dimac_subsets = get_subsets(dimac_formula)
+    redundant_sub_formulas = []
+    for i, inst_subset in enumerate(dimac_subsets):
+        semEqui = check_semantic_entailment(dimac_formula, inst_subset)
+        # print(inst_subset)
+        if semEqui:
+            # print(f"{dimac_formula[i]} is redundant in formula")
+            redundant_sub_formulas.append(inst_subset)
+        else:
+            print(f"{dimac_formula[i]} is non redundant in formula")
+    return redundant_sub_formulas
+
+
+def check_dimac_cnf_redundant_elements(dimac_formula):
     f_conv = formula_conversions()
     f_conv.get_cnf_from_dimac(dimac_formula)
-    return check_var_semantic_entailment(f_conv, dimac_formula)
+    return check_dimac_redundant_elements(f_conv, dimac_formula)
 
 
-def check_var_semantic_entailment(formula_converter, dimac_formula):
+def check_dimac_redundant_elements(formula_converter, dimac_formula):
     variables = formula_converter.get_variables()
     var_map = get_var_mapping(formula_converter.get_cnf_formula())
     redundant_elements = []
